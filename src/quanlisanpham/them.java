@@ -125,46 +125,44 @@ public class them extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Connection connect = conn.getConnect();
 				try {
-//					String query = "insert into dbo.QLSP (MaSP,TenSP,XuatXu,Soluong,Giatien) values (?,?,?,?,?)  ";
+
 					String query1 = "select * from dbo.QLSP";
 					Statement st = connect.createStatement();
 					ResultSet rs1 = st.executeQuery(query1);
-//					PreparedStatement pst = connect.prepareStatement(query);
-//					pst.setString(1, textmsp.getText());
-//					pst.setString(2, texttsp.getText());
-//					pst.setString(3, textxx.getText());
-//					pst.setString(4, textsl.getText());
-//					pst.setString(5, textgt.getText());
 
-					int x = 0;
-					while(rs1.next()) {
-						if (rs1.getString("MaSP").equals(textmsp.getText().toString())) {
-							x ++;
+					if (textmsp.getText().isEmpty() || texttsp.getText().isEmpty() || textxx.getText().isEmpty()
+							|| textsl.getText().isEmpty() || textgt.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Nhập thông tin muốn thêm !");
+					} else {
+						int x = 0;
+						while (rs1.next()) {
+							if (rs1.getString("MaSP").equals(textmsp.getText().toString())) {
+								x++;
+							}
 						}
+						if (x != 0) {
+							JOptionPane.showMessageDialog(null, "Mã sản phẩm đã tồn tại! Vui lòng nhập lại");
+						} else if (x == 0) {
+							String query = "insert into dbo.QLSP (MaSP,TenSP,XuatXu,Soluong,Giatien) values (?,?,?,?,?)  ";
+							PreparedStatement pst = connect.prepareStatement(query);
+							pst.setString(1, textmsp.getText());
+							pst.setString(2, texttsp.getText());
+							pst.setString(3, textxx.getText());
+							pst.setString(4, textsl.getText());
+							pst.setString(5, textgt.getText());
+							int rs = pst.executeUpdate();
+							JOptionPane.showMessageDialog(null, "Thêm thành công!");
+							pst.close();
+							connect.close();
+						}
+
 					}
-					if(x != 0) {
-						JOptionPane.showMessageDialog(null, "Mã sản phẩm đã tồn tại! vui lòng nhập lại");
-					}
-					else if(x == 0) {
-						String query = "insert into dbo.QLSP (MaSP,TenSP,XuatXu,Soluong,Giatien) values (?,?,?,?,?)  ";
-						PreparedStatement pst = connect.prepareStatement(query);
-						pst.setString(1, textmsp.getText());
-						pst.setString(2, texttsp.getText());
-						pst.setString(3, textxx.getText());
-						pst.setString(4, textsl.getText());
-						pst.setString(5, textgt.getText());
-						int rs = pst.executeUpdate();
-						JOptionPane.showMessageDialog(null, "Thêm thành công!");
-						pst.close();
-						connect.close();
-					}
-					
-					// rs.close();
-				} catch (Exception e1) {
+				}
+
+				catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
-
 		});
 		btnNewButton.setBounds(277, 272, 89, 23);
 		contentPane.add(btnNewButton);

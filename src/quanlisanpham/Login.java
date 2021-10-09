@@ -91,7 +91,7 @@ public class Login extends JFrame {
 				}
 				else
 				{
-					JOptionPane.showConfirmDialog(null, "Invalid Login Details","Login Error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(null, "Đăng nhập không thành công!","Login Error",JOptionPane.ERROR_MESSAGE);
 					textPassword.setText(null);
 					textUsername.setText(null);
 					

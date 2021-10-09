@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Image;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -128,10 +129,11 @@ public class dsspdh extends JFrame {
 			model.addColumn("Giá tiền (Vnd)");
 			try {
 				String query = "select * from dbo.QLSP";
+				
 				Statement st = connect.createStatement();
 				ResultSet rs = st.executeQuery(query);
-
-				int x=0;
+				
+       			int x=0;
 				while (rs.next()) {
 					if (Integer.parseInt(rs.getString("Soluong")) == 0) {
 						model.addRow(new Object[] { rs.getString("MaSP"), rs.getString("TenSP"), rs.getString("XuatXu"),
@@ -150,8 +152,8 @@ public class dsspdh extends JFrame {
 				connect.close();
 				table.setModel(model);
 				table.setAutoResizeMode(1);
-
-			} catch (Exception e) {
+				
+				} catch (Exception e) {
 
 				System.out.println("Lỗi " + e);
 			}

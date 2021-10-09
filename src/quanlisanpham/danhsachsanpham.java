@@ -179,17 +179,6 @@ public class danhsachsanpham<PrepareStatement> {
 
 						Statement st = connect.createStatement();
 						ResultSet rs = st.executeQuery(query);
-//						if (!textTimkiem.getText().isEmpty()) {
-//							if (!rs.next()) {
-//								JOptionPane.showMessageDialog(null, "Mã hóa đơn không tồn tại!");
-////							} else {
-////								// Bỏ code tìm kiếm ở đây
-////								model.addRow(new Object[] {
-////
-////										rs.getString("MaSP"), rs.getString("TenSP"), rs.getString("XuatXu"),
-////										rs.getString("Soluong"), rs.getString("Giatien"), });
-//							}
-//						}
 
 						while (rs.next()) {
 
@@ -198,6 +187,9 @@ public class danhsachsanpham<PrepareStatement> {
 									rs.getString("MaSP"), rs.getString("TenSP"), rs.getString("XuatXu"),
 									rs.getString("Soluong"), rs.getString("Giatien"), });
 							x++;
+						}
+						if (x == 0) {
+							JOptionPane.showMessageDialog(null, "Mã sản phẩm không tồn tại! Vui lòng nhập lại!");
 						}
 
 						rs.close();
@@ -219,13 +211,11 @@ public class danhsachsanpham<PrepareStatement> {
 					model.addColumn("Số lượng (Kg)");
 					model.addColumn("Giá tiền (Vnd)");
 					try {
-//						String query = "select * from dbo.QLSP where XuatXu = \'" + text + "\' OR TenSP = \'" + text
-//								+ "\'";
-						String query = "select * from dbo.QLSP where (XuatXu like \'%" + text + "%\' OR TenSP like \'%" + text + "%\')";
+						String query = "select * from dbo.QLSP where (XuatXu like \'%" + text + "%\' OR TenSP like \'%"
+								+ text + "%\')";
 
 						Statement st = connect.createStatement();
 						ResultSet rs = st.executeQuery(query);
-
 
 						while (rs.next()) {
 
@@ -235,9 +225,9 @@ public class danhsachsanpham<PrepareStatement> {
 									rs.getString("Soluong"), rs.getString("Giatien"), });
 							x++;
 						}
-						if(x == 0) {
-							JOptionPane.showMessageDialog(null, "Không tìm thấy thông tin sản phẩm!");
-						}	
+						if (x == 0) {
+							JOptionPane.showMessageDialog(null, "Thông tin sản phẩm không tồn tại! Vui lòng nhập lại");
+						}
 
 						rs.close();
 						st.close();
@@ -266,11 +256,6 @@ public class danhsachsanpham<PrepareStatement> {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		lblNewLabel_1.setBounds(10, 78, 346, 23);
 		frame.getContentPane().add(lblNewLabel_1);
-
-	}
-
-	protected void dispose() {
-		// TODO Auto-generated method stub
 
 	}
 

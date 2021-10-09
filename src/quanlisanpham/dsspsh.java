@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.awt.event.ActionListener;
@@ -139,9 +140,9 @@ public class dsspsh extends JFrame {
 								rs.getString("Soluong"), rs.getString("Giatien"), });
 						x++;
 					}
-
 				}
-				if(x == 0) {
+
+				if (x == 0) {
 					JOptionPane.showMessageDialog(null, "Không có sản phẩm nào sắp hết");
 				}
 				rs.close();
